@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Проблемы аутентификации в современных frontend приложениях</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="node_modules/@shower/ribbon/styles/styles.css">
+    <link rel="stylesheet" href="font/stylesheet.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+		.shower {
+			--slide-ratio: calc(16 / 9);
+		}
+
+		.fs80 {
+			font-size: 80px !important;
+		}
+    </style>
+</head>
+<body class="shower list">
+
+<header class="caption">
+    <h1>Проблемы аутентификации в современных frontend приложениях</h1>
+    <p>Иван Поддубный, CTO Webpractik</p>
+</header>
+
+<section class="slide">
+    <h2 class="shout shrink fs80">Проблемы аутентификации в современных frontend приложениях</h2>
+
+    <div class="logo"></div>
+</section>
+
+<section class="slide">
+    <h2><span>Кто я</span></h2>
+    <ol>
+        <li>10+ лет в вебе. Прошел путь fullstack, teamlead.</li>
+        <li>Пишу на PHP (Laravel/Bitrix), Typescript, Nodejs</li>
+        <li>Влюблен в Linux, OpenSource, React.</li>
+        <li>Работаю CTO в Вебпрактик <span><i>(отдел разработки 50+ человек)</i></span></li>
+        <li>Один из организаторов Ростовского PHP сообщества</li>
+    </ol>
+    <img class="cover" src="pictures/bg.png" alt="">
+
+    <div class="logo"></div>
+</section>
+
+<section class="slide clear">
+    <h2><span>В Вебпрактик мы пишем сервисы для корпораций</span></h2>
+    <img style="margin-top: 50px;" class="cover" src="pictures/clients.png" alt="">
+
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2><span>Что побудило сделать доклад</span></h2>
+    <ol>
+        <li>Я не нашел единого источника информации который бы охватил все аспекты построения безопасной авторизации на JWT токенах для SPA приложений</li>
+        <li>Я не нашел библиотеки которая всецело бы удовлетворяла потребности фронтендера и инкапсулировала всю сложность</li>
+    </ol>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2><span>Вопросы в зал</span></h2>
+    <ul>
+        <li>Кто из вас реализовывал аутентификацию в SPA приложениях?</li>
+        <li class="next">Кто делал stateless авторизацию на JWT токенах?</li>
+        <li class="next">Кто читал OWASP рекомендации (или RFC 8725 JSON Web Token Best Current Practices) как сделать это безопасно?</li>
+    </ul>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2><span>Об этом докладе</span></h2>
+    <ol>
+        <li>В докладе будут затрагиваться местами и бекенд часть</li>
+        <li>Доклад будет пол</li>
+    </ol>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2><span>Как мы пришли к вопросу</span></h2>
+    <ul>
+        <li>Мы создаем приложений и сайты для корпораций</li>
+        <li class="next">В 18 году у нас стало больше MSA/SOA/Гибрид решений и SPA приложений</li>
+        <li class="next">Начали переосмысливать подходы к авторизации, начали делать первые приложения на JWT токенах</li>
+    </ul>
+    <div class="logo"></div>
+</section>
+
+
+<section class="slide ">
+    <h2 class="shout shrink fs70">Немного теории</h2>
+    <div class="logo"></div>
+</section>
+
+
+
+<section class="slide ">
+    <h2 class="shout shrink fs70">Разница авторизации аутентификакии @todo</h2>
+    <div class="logo"></div>
+</section>
+
+
+
+<section class="slide ">
+    <h2>Основные современные виды аутентификации в веб приложениях</h2>
+    <p>С технической точки зрения.</p>
+    <ol>
+        <li>Session</li>
+        <li>JWT</li>
+        <li class="">OAuth 2.0 / OIDC</li>
+        <li class="">AD/LDAP федерации (в т.ч. NTLM/Kerberos)</li>
+        <li class="">Basic Http</li>
+    </ol>
+    <div class="logo"></div>
+</section>
+<section class="slide ">
+    <h2>Основные современные виды аутентификации в веб приложениях</h2>
+    <p>С технической точки зрения.</p>
+    <ol>
+        <li>
+            <mark>Session</mark>
+        </li>
+        <li>
+            <mark>JWT (custom)</mark>
+        </li>
+        <li class="gray">OAuth 2.0 / OIDC</li>
+        <li class="gray">AD/LDAP федерации (в т.ч. NTLM/Kerberos)</li>
+        <li class="gray">Basic Http</li>
+    </ol>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2 class="shout shrink fs60">Почему не рассматриваем OIDC/OAuth?</h2>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2 class="shout shrink fs70">OIDC/OAuth + Gatekeeper = ❤</h2>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2 class="shout shrink fs70">Stateless (JWT) vs Stateful (session) авторизация</h2>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2>Stateful (session) авторизация</h2>
+    <p>Классическая аутентификация в монолитных приложениях</p>
+    <img width="400" style="float: right" src="pictures/session-auth.svg" alt="">
+    <ul class="clear-list">
+        <li>➕ Простота</li>
+        <li>➕ Проще обеспечить безопасность</li>
+        <li>➖ Скорость</li>
+        <li>➖ Масштабирование</li>
+        <li>➖ Плохо подходит SOA/MSA</li>
+    </ul>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2>Stateless (JWT)</h2>
+    <img style="float: right" src="pictures/jwt-auth.svg" alt="">
+    <ul class="clear-list">
+        <li>➕ Масштабирование</li>
+        <li>➕ Скорость</li>
+        <li>➖ Сложнее обеспечить безопасность</li>
+    </ul>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2>JWT</h2>
+    <img width="630" src="pictures/jwt-basic.png" alt="">
+
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2>Где разместить аутентификацию?</h2>
+    <ol>
+        <li>Корпоративный SSO на базе Keycloak или OryStack.</li>
+        <li>Аутентификация на стороне бекенда</li>
+        <li>Аутентификация и авторизация на фронтенд-сервисе</li>
+    </ol>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2><span class="gray">Подходы:</span> корпоративный SSO Keycloak/Ory</h2>
+    <img class="width-wrap" width="800" style="margin-bottom: 20px;" src="pictures/keycloak.png" alt="">
+    <div class="logo"></div>
+</section>
+
+
+<section class="slide ">
+    <h2><span class="gray">Подходы:</span> корпоративный SSO Keycloak/Ory</h2>
+    <img class="width-wrap" width="600" style="margin-bottom: 20px;" src="pictures/gatekeeper.svg" alt="">
+    <div class="logo"></div>
+</section>
+
+<section class="slide">
+    <h2><span class="gray">Подходы:</span> корпоративный SSO Keycloak/Ory</h2>
+    <ul class="clear-list">
+        <li>➕ Забирает почти всю боль с приложений бекенда и фронтенда</li>
+        <li class="next">➕ Рекомендации по безопасности из коробки</li>
+        <li class="next">➕ Нет дублирования кода авторизации в каждом микросервисе</li>
+        <li class="next">➕ Stateless, JWT</li>
+        <li class="next">➖ Доп узел, который нужно мониторить, поддерживать, обновлять, обслуживать</li>
+        <li class="next">➖ Может возникнуть кейс с необходимостью управления разделяемой (общей) базой между сервисами</li>
+    </ul>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2><span class="gray">Подходы:</span> аутентификация на бекенде</h2>
+    <img class="width-wrap " width="800" style="margin-top: 30px;" src="pictures/auth-in-back.svg" alt="">
+    <div class="logo"></div>
+</section>
+
+
+<section class="slide">
+    <h2><span class="gray">Подходы:</span> аутентификация на бекенде</h2>
+    <ul>
+        <li>➕ За хранение и обработку пользователей отвечает 1 сервис</li>
+        <li class="next">➕ Stateless JWT, хотя можно и statefull бахнуть</li>
+        <li class="next">➖ Все писать самому</li>
+    </ul>
+    <div class="logo"></div>
+</section>
+
+
+<section class="slide ">
+    <h2><span class="gray">Подходы:</span> аутентификация и хранение пользователей на фронтенд-сервисе</h2>
+    <img class="width-wrap " width="600" style="margin-top: 20px;" src="pictures/auth-in-front.svg" alt="">
+    <div class="logo"></div>
+</section>
+
+
+<section class="slide">
+    <h2><span class="gray">Подходы:</span> аутентификация и хранение пользователей на фронтенд-сервисе</h2>
+    <ul>
+        <li>➕ За хранение и обработку пользователей отвечает 1 сервис</li>
+        <li class="next">➖ За хранение и обработку пользователей отвечает 1 сервис</li>
+        <li class="next">➖ Подойдет ограниченному количеству сервисов</li>
+    </ul>
+
+    <p>Next auth предлагает такую схему из коробки как один из вариантов.</p>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2 class="">Разберем очень частый случай для типового SPA приложения</h2>
+    <ul>
+        <li>Аутентификация на бекенде</li>
+        <li>Бекенд отдает REST API + JWT токен</li>
+    </ul>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2 class="shout shrink fs70">Какие вопросы перед нами встают?</h2>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2 class="">Где хранить JWT токен?</h2>
+    <ol>
+        <li class="next">В local storage? <span class="next">Если домены разные то можно в Session Storage (OWASP)</span></li>
+        <li class="next">В cookie http only</li>
+    </ol>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2 class="">Как читать данные с токена?</h2>
+    <ol>
+        <li class="next">cookie http_only: делаем запрос на сервер при загрузке страницы (best practices)</li>
+        <li class="next">Локальное хранение
+            <ul>
+                <li>Просто читаем данные с токена который хранится? <span class="next">плохо</span></li>
+                <li class="next">А если cookie зашифрована? (Рекомендация OWASP)</li>
+                <li class="next">Итого: лучшая практика все равно запрашивать данные с сервера</li>
+            </ul>
+        </li>
+    </ol>
+
+    <footer class="footer">
+        Реструктурировать слайд
+    </footer>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2 class="">Сколько должен жить JWT токен?</h2>
+    <ol>
+        <li class="next">best practices 5-15 минут</li>
+    </ol>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2 class="">А как его обновлять?</h2>
+    <ol>
+        <li class="next">Refresh token</li>
+    </ol>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2 class="">Где хранить Refresh token?</h2>
+    <ol>
+        <li class="next">cookie http_only / local storage</li>
+        <li class="next"></li>
+    </ol>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2 class="">Сколько хранить Refresh token?</h2>
+    <ol>
+        <li class="next">От нескольких часов, до нескольких недель</li>
+    </ol>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2>Механика обновления access token</h2>
+    <ol>
+        <li class="next">cookie http_only: происходит фоном на бекенде</li>
+        <li class="next">локальное хранение: response interceptor клиента на 401, с перезапросом</li>
+    </ol>
+    @todo код
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2>Ротация Refresh токенов</h2>
+    <ul>
+        <li>При запросе нового access token, выдавать в т.ч. новый refresh token, делая старый устаревшим</li>
+        <li class="next">Идем дальше: объединять цепочку токенов в семейство. При попытке использовании старого refresh token - убивать всю семью.</li>
+    </ul>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2>Как делать запросы на сервисы?</h2>
+    <ol>
+        <li class="next">cookie http_only: ничего делать не нужно</li>
+        <li class="next">локальное хранение: request interceptor c Authorization header</li>
+    </ol>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2><span>Таблица готовых решений</span></h2>
+    https://docs.google.com/spreadsheets/d/1nZUd1lptmFNdmodBFQ2qfOFCjDOUeBXc2vS2sZRrX1A/edit#gid=0
+    @todo чек по требованиям
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2><span>Как отозвать токен?</span></h2>
+    <ul>
+        <li class="next">blacklist (OWASP)</li>
+    </ul>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2 class="shout shrink fs70">blacklist? Но как же stateless?</h2>
+    <div class="logo"></div>
+</section>
+
+
+<section class="slide ">
+    <h2><span>Как защитить токен от кражи? (Token Sidejacking)</span></h2>
+    <ul>
+        <li class="next">csrf token в виде отдельной http_only cookie в котором хранить user context + random SHA256</li>
+    </ul>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2 class="shout shrink fs70">@todo: Разбор NextAuth</h2>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2 class="shout shrink fs70">@todo: Чек лист для frontend разрабочтика</h2>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2><span>С каким сложностями столкнулись</span></h2>
+    <ul>
+        <li>Нет единого канонического решения в open source (пока есть только попытки)</li>
+        <li>Многие пишут свой велосипеды</li>
+        <li>Безопасность: рекомендации OWASP, нормативные законодательные акты и пр.</li>
+        <li>Нужно немало обвязок для разных ситуаций: просрочен access token, стратегия продления refresh token, хранение и шифрование токенов, отзыв токенов.</li>
+        <li>Авторизация через внешних поставщиков</li>
+        <li>Мультифакторная авторизация</li>
+        <li>Знание протоколов OIDC, oAuth</li>
+    </ul>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2 class="">Полезные ссылки</h2>
+    <div class="logo"></div>
+</section>
+
+
+<section class="slide clear">
+
+    <div class="logo"></div>
+</section>
+
+<footer class="badge">
+    <a href="https://github.com/shower/shower">Fork me on GitHub</a>
+</footer>
+
+<div class="progress"></div>
+
+<script src="node_modules/@shower/core/dist/shower.js"></script>
+<!-- Copyright © 2022 Yours Truly, Famous Inc. -->
+
+</body>
+</html>
