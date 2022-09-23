@@ -23,6 +23,26 @@
 		.green {
 			color: green;
 		}
+
+		.plus {
+			content: "";
+			display: inline-block;
+            margin-bottom: -2px;
+            width: 20px;
+			height: 20px;
+            background: url(pictures/plus1.png);
+			background-size: 100% 100%;
+		}
+
+		.minus {
+			content: "";
+			display: inline-block;
+            margin-bottom: -2px;
+            width: 20px;
+			height: 20px;
+            background: url(pictures/minus1.png);
+			background-size: 100% 100%;
+		}
     </style>
 </head>
 <body class="shower list">
@@ -32,7 +52,7 @@
     <p>Иван Поддубный, CTO Webpractik</p>
 </header>
 
-<section class="slide">
+<section class="slide clear">
     <h2 class="shout shrink fs80">Проблемы аутентификации в современных frontend приложениях</h2>
 
     <div class="logo"></div>
@@ -164,11 +184,11 @@
     <p>Классическая аутентификация в монолитных приложениях</p>
     <img width="400" style="float: right" src="pictures/session-auth.svg" alt="">
     <ul class="clear-list">
-        <li>➕ Простота</li>
-        <li>➕ Проще обеспечить безопасность</li>
-        <li>➖ Скорость</li>
-        <li>➖ Масштабирование</li>
-        <li>➖ Плохо подходит SOA/MSA</li>
+        <li><i class="plus"></i> Простота</li>
+        <li><i class="plus"></i> Проще обеспечить безопасность</li>
+        <li><i class="minus"></i> Скорость</li>
+        <li><i class="minus"></i> Масштабирование</li>
+        <li><i class="minus"></i> Плохо подходит SOA/MSA</li>
     </ul>
     <div class="logo"></div>
 </section>
@@ -177,9 +197,9 @@
     <h2>Stateless (JWT)</h2>
     <img style="float: right" src="pictures/jwt-auth.svg" alt="">
     <ul class="clear-list">
-        <li>➕ Масштабирование</li>
-        <li>➕ Скорость</li>
-        <li>➖ Сложнее обеспечить безопасность</li>
+        <li><i class="plus"></i> Масштабирование</li>
+        <li><i class="plus"></i> Скорость</li>
+        <li><i class="minus"></i> Сложнее обеспечить безопасность</li>
     </ul>
     <div class="logo"></div>
 </section>
@@ -217,12 +237,12 @@
 <section class="slide">
     <h2><span class="gray">Подходы:</span> корпоративный SSO Keycloak/Ory</h2>
     <ul class="clear-list">
-        <li>➕ Забирает почти всю боль с приложений бекенда и фронтенда</li>
-        <li class="next">➕ Рекомендации по безопасности из коробки</li>
-        <li class="next">➕ Нет дублирования кода авторизации в каждом микросервисе</li>
-        <li class="next">➕ Stateless, JWT</li>
-        <li class="next">➖ Доп узел, который нужно мониторить, поддерживать, обновлять, обслуживать</li>
-        <li class="next">➖ Может возникнуть кейс с необходимостью управления разделяемой (общей) базой между сервисами</li>
+        <li><i class="plus"></i> Забирает почти всю боль с приложений бекенда и фронтенда</li>
+        <li class="next"><i class="plus"></i> Рекомендации по безопасности из коробки</li>
+        <li class="next"><i class="plus"></i> Нет дублирования кода авторизации в каждом микросервисе</li>
+        <li class="next"><i class="plus"></i> Stateless, JWT</li>
+        <li class="next"><i class="minus"></i> Доп узел, который нужно мониторить, поддерживать, обновлять, обслуживать</li>
+        <li class="next"><i class="minus"></i> Может возникнуть кейс с необходимостью управления разделяемой (общей) базой между сервисами</li>
     </ul>
     <div class="logo"></div>
 </section>
@@ -236,10 +256,10 @@
 
 <section class="slide">
     <h2><span class="gray">Подходы:</span> аутентификация на бекенде</h2>
-    <ul>
-        <li>➕ За хранение и обработку пользователей отвечает 1 сервис</li>
-        <li class="next">➕ Stateless JWT, хотя можно и statefull бахнуть</li>
-        <li class="next">➖ Все писать самому. На бекенде есть готовые решения, на фронте нужно будет писать.</li>
+    <ul class="clear-list">
+        <li><i class="plus"></i> За хранение и обработку пользователей отвечает 1 сервис</li>
+        <li class="next"><i class="plus"></i> Stateless JWT, хотя можно и statefull бахнуть</li>
+        <li class="next"><i class="minus"></i> Все писать самому. На бекенде есть готовые решения, на фронте нужно будет писать.</li>
     </ul>
     <div class="logo"></div>
 </section>
@@ -254,10 +274,10 @@
 
 <section class="slide">
     <h2><span class="gray">Подходы:</span> аутентификация и хранение пользователей на фронтенд-сервисе</h2>
-    <ul>
-        <li>➕ За хранение и обработку пользователей отвечает 1 сервис</li>
-        <li class="next">➖ За хранение и обработку пользователей отвечает 1 сервис</li>
-        <li class="next">➖ Подойдет ограниченному количеству сервисов</li>
+    <ul class="clear-list">
+        <li><i class="plus"></i> За хранение и обработку пользователей отвечает 1 сервис</li>
+        <li class="next"><i class="minus"></i> За хранение и обработку пользователей отвечает 1 сервис</li>
+        <li class="next"><i class="minus"></i> Подойдет ограниченному количеству сервисов</li>
     </ul>
 
     <p>Next auth предлагает такую схему из коробки как один из вариантов.</p>
@@ -623,14 +643,14 @@ private getRequest(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEve
 
 <section class="slide ">
     <h2 class="  fs70">Разбор NextAuth: Безопасность</h2>
-    <ol>
-        <li>➕ реализовано шифрование JWS / JWE / JWK</li>
-        <li>➕ httpOnly SameSite Secure cookie</li>
-        <li>➕ запрос данных расшифрованной cookie с сервера</li>
-        <li>➕ Синхронизация вкладок, автопроверка, поддержка активности</li>
-        <li>➕ CSRF</li>
-        <li>➕ Ротация токенов</li>
-        <li>➖ Нет Refresh токена => нет механизма отзыва токенов</li>
+    <ul class="clear-list">
+        <li><i class="plus"></i> реализовано шифрование JWS / JWE / JWK</li>
+        <li><i class="plus"></i> httpOnly SameSite Secure cookie</li>
+        <li><i class="plus"></i> запрос данных расшифрованной cookie с сервера</li>
+        <li><i class="plus"></i> Синхронизация вкладок, автопроверка, поддержка активности</li>
+        <li><i class="plus"></i> CSRF</li>
+        <li><i class="plus"></i> Ротация токенов</li>
+        <li><i class="minus"></i> Нет Refresh токена => нет механизма отзыва токенов</li>
     </ol>
     <div class="logo"></div>
 </section>
@@ -661,7 +681,7 @@ private getRequest(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEve
     <img src="pictures/nextauth-tokens-table.jpg" class="cover shrink" alt="">
 </section>
 
-<section class="slide ">
+<section class="slide clear">
     <img src="pictures/next-naher.jpg" class="cover shrink" alt="">
 </section>
 
@@ -687,7 +707,7 @@ private getRequest(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEve
     <img width="800"  src="pictures/nextauth-trust.svg" alt="">
     <ul class="clear-list">
         <li>* Закрываем бек от внешки</li>
-        <li>➖ Необходимо безоговорочное доверие сервису фронта</li>
+        <li><i class="minus"></i> Необходимо безоговорочное доверие сервису фронта</li>
     </ul>
     <div class="logo"></div>
 </section>
@@ -696,7 +716,7 @@ private getRequest(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEve
     <h2>Shared jwt encrypted key</h2>
     <img width="600"  src="pictures/nextauth-sharedjwt.svg" alt="">
     <ul class="clear-list">
-        <li>➖ Специфичный алгоритм шифрования <b>из коробки</b></li>
+        <li><i class="minus"></i> Специфичный алгоритм шифрования <b>из коробки</b></li>
     </ul>
     <div class="logo"></div>
 </section>
@@ -789,21 +809,21 @@ private getRequest(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEve
 
 <section class="slide ">
     <h2 class=" shrink fs70">Обзор: useAuth</h2>
-    <ul>
-        <li>➖ Не обновлялся 2 года</li>
-        <li>➖ Слабая проработка безопасности, токены хранятся локально</li>
-        <li>➖ Все равно писать интерцепторы</li>
-        <li>➕ Неплохая документация</li>
+    <ul class="clear-list">
+        <li><i class="minus"></i> Не обновлялся 2 года</li>
+        <li><i class="minus"></i> Слабая проработка безопасности, токены хранятся локально</li>
+        <li><i class="minus"></i> Все равно писать интерцепторы</li>
+        <li><i class="plus"></i> Неплохая документация</li>
     </ul>
     <div class="logo"></div>
 </section>
 
 <section class="slide ">
     <h2 class=" shrink fs70">Обзор: react-auth-kit</h2>
-    <ul>
-        <li>➕ Регулярно обновляется</li>
-        <li>➖ Мало звезд и скачиваний</li>
-        <li>➖ Слабая проработка безопасности, токены хранятся локально</li>
+    <ul class="clear-list">
+        <li><i class="plus"></i> Регулярно обновляется</li>
+        <li><i class="minus"></i> Мало звезд и скачиваний</li>
+        <li><i class="minus"></i> Слабая проработка безопасности, токены хранятся локально</li>
     </ul>
     <div class="logo"></div>
 </section>
@@ -819,14 +839,14 @@ private getRequest(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEve
     <div class="logo"></div>
 </section>
 
-<section class="slide ">
-    <h2 class=" shrink fs70">CheatList контроля безопасности при использовании JWT авторизации</h2>
-    <ul>
-        <li></li>
-        <li>@todo</li>
-    </ul>
-    <div class="logo"></div>
-</section>
+<!--<section class="slide ">-->
+<!--    <h2 class=" shrink fs70">CheatList контроля безопасности при использовании JWT авторизации</h2>-->
+<!--    <ul>-->
+<!--        <li></li>-->
+<!--        <li>@todo</li>-->
+<!--    </ul>-->
+<!--    <div class="logo"></div>-->
+<!--</section>-->
 
 <!--<section class="slide ">-->
 <!--    <h2 class="shout shrink fs70">@todo: Чек лист для frontend разрабочтика</h2>-->
@@ -849,10 +869,10 @@ private getRequest(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEve
 <section class="slide">
     <h2 class="">Спасибо! 🙃</h2>
     <p>Ваши вопросы</p>
-    Telegram: @northleshiy
+    Telegram: <a href="https://t.me/northleshiy">@northleshiy</a>
 
-    <br><br>@todo QR
-    <p><img class="place right" src="pictures/qr-code.svg" style="max-width: 300px; margin-right: 200px" alt=""></p>
+
+    <p> <img class="place right" src="pictures/qr-code.svg" style="max-width: 300px; margin-right: 300px" alt=""></p>
 
 </section>
 
