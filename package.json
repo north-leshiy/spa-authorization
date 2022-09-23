@@ -7,6 +7,13 @@
     "bundle": "shower bundle",
     "publish": "shower publish"
   },
+  "dependencies": {
+    "@shower/ribbon": "^3.0.0",
+    "@shower/core": "^3.0.0",
+    "@shower/material": "^2.3.0",
+    "highlight.js": "^10.4.1"
+
+  },
   "devDependencies": {
     "@shower/cli": "^0.3.1"
   }
