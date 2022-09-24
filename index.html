@@ -62,10 +62,10 @@
     <h2><span>Кто я</span></h2>
     <ol>
         <li>10+ лет в вебе. Прошел путь fullstack, teamlead.</li>
-        <li>Пишу на PHP (Laravel/Bitrix), Typescript, Nodejs</li>
-        <li>Влюблен в Linux, OpenSource, React.</li>
+        <li>Пишу на PHP, Typescript, Nodejs (Nest) и React</li>
+        <li>Влюблен в Linux, OpenSource.</li>
         <li>Работаю CTO в Вебпрактик <span><i>(отдел разработки 50+ человек)</i></span></li>
-        <li>Один из организаторов Ростовского PHP сообщества</li>
+        <li>Организатор Ростовского PHP сообщества (300+ человек)</li>
     </ol>
 
     <div class="logo"></div>
@@ -250,7 +250,7 @@
 
 <section class="slide ">
     <h2><span class="gray">Подходы:</span> корпоративный SSO Keycloak/Ory</h2>
-    <img class="width-wrap" width="600" style="margin-bottom: 20px;" src="pictures/gatekeeper.svg" alt="">
+    <img class="width-wrap" width="560" style="margin-bottom: 20px;" src="pictures/gatekeeper2.svg" alt="">
     <div class="logo"></div>
 </section>
 
@@ -262,7 +262,7 @@
         <li class="next"><i class="plus"></i> Нет дублирования кода авторизации в каждом микросервисе</li>
         <li class="next"><i class="plus"></i> Stateless, JWT</li>
         <li class="next"><i class="minus"></i> Доп узел, который нужно мониторить, поддерживать, обновлять, обслуживать</li>
-        <li class="next"><i class="minus"></i> Может возникнуть кейс с необходимостью управления разделяемой (общей) базой между сервисами</li>
+<!--        <li class="next"><i class="minus"></i> Может возникнуть кейс с необходимостью управления разделяемой (общей) базой между сервисами</li>-->
     </ul>
     <div class="logo"></div>
 </section>
@@ -279,7 +279,7 @@
     <ul class="clear-list">
         <li><i class="plus"></i> За хранение и обработку пользователей отвечает 1 сервис</li>
         <li class="next"><i class="plus"></i> Stateless JWT, хотя можно и statefull бахнуть</li>
-        <li class="next"><i class="minus"></i> Все писать самому. На бекенде есть готовые решения, на фронте нужно будет писать.</li>
+        <li class="next"><i class="minus"></i> Фронтенд писать полностью самому. На бекенде есть готовые решения.</li>
     </ul>
     <div class="logo"></div>
 </section>
@@ -296,11 +296,10 @@
     <h2><span class="gray">Подходы:</span> аутентификация и хранение пользователей на фронтенд-сервисе</h2>
     <ul class="clear-list">
         <li><i class="plus"></i> За хранение и обработку пользователей отвечает 1 сервис</li>
-        <li class="next"><i class="minus"></i> За хранение и обработку пользователей отвечает 1 сервис</li>
         <li class="next"><i class="minus"></i> Подойдет ограниченному количеству сервисов</li>
     </ul>
 
-    <p>Next auth предлагает такую схему из коробки как один из вариантов.</p>
+    <p class="next">Next auth предлагает такую схему из коробки как один из вариантов.</p>
     <div class="logo"></div>
 </section>
 
@@ -347,33 +346,25 @@
 
 <section class="slide ">
     <h2 class="">Сколько должен жить JWT токен?</h2>
-    <ol>
-        <li class="next">best practices 5-15 минут</li>
-    </ol>
     <div class="logo"></div>
 </section>
 
 <section class="slide ">
     <h2 class="">А как его обновлять?</h2>
-    <ol>
-        <li class="next">Refresh token</li>
-    </ol>
+    <h2 class=""><span class="gray">Refresh token</span></h2>
     <div class="logo"></div>
 </section>
 
 <section class="slide ">
     <h2 class="">Где хранить Refresh token?</h2>
-    <ol>
-        <li class="next">cookie http_only / local storage</li>
-    </ol>
+    <h2 class=""><span class="gray">cookie http_only / local storage</span></h2>
     <div class="logo"></div>
 </section>
 
 <section class="slide ">
     <h2 class="">Сколько хранить Refresh token?</h2>
-    <ol>
-        <li class="next">От нескольких часов, до нескольких недель</li>
-    </ol>
+
+    <h2 class=""><span class="gray">От нескольких часов, до нескольких недель</span></h2>
     <div class="logo"></div>
 </section>
 
@@ -383,7 +374,6 @@
         <li class="next">cookie http_only: происходит фоном на бекенде</li>
         <li class="next">локальное хранение: response interceptor клиента на 401, с перезапросом</li>
     </ol>
-
     <div class="logo"></div>
 </section>
 
@@ -536,6 +526,7 @@ private getRequest(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEve
     <ul>
         <li>При запросе нового access token, выдавать в т.ч. новый refresh token, делая старый устаревшим</li>
         <li class="next">Идем дальше: объединять цепочку токенов в семейство. При попытке использовании старого refresh token - убивать всю семью.</li>
+        <li class="next">И все это больно делать если до этого мы сохраняли токен в storage, опять прийдется работать ручками</li>
     </ul>
     <div class="logo"></div>
 </section>
@@ -581,7 +572,7 @@ private getRequest(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEve
 
 
 <section class="slide ">
-    <h2><span><a href="https://docs.google.com/spreadsheets/d/1nZUd1lptmFNdmodBFQ2qfOFCjDOUeBXc2vS2sZRrX1A/edit#gid=0">Таблица готовых решений</a></span></h2>
+    <h2><span><a href="https://docs.google.com/spreadsheets/d/1nZUd1lptmFNdmodBFQ2qfOFCjDOUeBXc2vS2sZRrX1A/edit#gid=0">Таблица готовых решений на примере react</a></span></h2>
 
     <style type="text/css">
 		.tg  {border-collapse:collapse;border-spacing:0;}
@@ -663,14 +654,14 @@ private getRequest(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEve
 
 <section class="slide ">
     <h2 class="  fs70">Разбор NextAuth: Безопасность</h2>
-    <ul class="clear-list">
-        <li><i class="plus"></i> реализовано шифрование JWS / JWE / JWK</li>
-        <li><i class="plus"></i> httpOnly SameSite Secure cookie</li>
-        <li><i class="plus"></i> запрос данных расшифрованной cookie с сервера</li>
-        <li><i class="plus"></i> Синхронизация вкладок, автопроверка, поддержка активности</li>
-        <li><i class="plus"></i> CSRF</li>
-        <li><i class="plus"></i> Ротация токенов</li>
-        <li><i class="minus"></i> Нет Refresh токена => нет механизма отзыва токенов</li>
+    <ol class="clear-list">
+        <li class="next"><i class="plus"></i> реализовано шифрование JWS / JWE / JWK</li>
+        <li class="next"><i class="plus"></i> httpOnly SameSite Secure cookie</li>
+        <li class="next"><i class="plus"></i> запрос данных расшифрованной cookie с сервера</li>
+        <li class="next"><i class="plus"></i> Синхронизация вкладок, автопроверка, поддержка активности</li>
+        <li class="next"><i class="plus"></i> CSRF</li>
+        <li class="next"><i class="plus"></i> Ротация токенов</li>
+        <li class="next"><i class="minus"></i> Нет Refresh токена => нет механизма отзыва токенов</li>
     </ol>
     <div class="logo"></div>
 </section>
@@ -745,8 +736,8 @@ private getRequest(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEve
     <h2>Nextauth: выводы</h2>
     <ul class="clear-list">
         <li>Все неплохо с безопасностью</li>
-        <li>Отлично подходит когда serverless, или fullstack проектов</li>
-        <li class="next">Отлично зайдет когда бекенд поставляет oAuth авторизацию</li>
+        <li>Отлично подходит для serverless, или fullstack проектов</li>
+        <li class="next">Отлично зайдет когда бекенд поставляет oAuth авторизацию или нужно быстро получить авторизацию с любым из многих провайдеров</li>
         <li class="next">В случае со стандартной авторизацией с бекендом - подойдет, но придется повозиться. И договорится с беком о правилах игры.</li>
     </ul>
     <div class="logo"></div>
@@ -848,13 +839,24 @@ private getRequest(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEve
     <div class="logo"></div>
 </section>
 
+
 <section class="slide ">
-    <h2 class=" shrink fs70">Выводы</h2>
+    <h2 class=" shrink fs70">Выводы общие</h2>
     <ul>
-        <li>Идеальный вариант - oidc аутентификация + Gatekeeper</li>
-        <li class="next">🥲 На фронтенде нет хороших универсальных готовых решений закрывающих все основные требования безопасности</li>
+        <li>Идеальный вариант (наш опыт) - oidc аутентификация + Gatekeeper</li>
+        <li class="next">😐 На фронтенде нет хороших универсальных готовых решений закрывающих все основные требования безопасности</li>
         <li class="next">Ближе всех к решению вопроса Nextjs, но он несет дополнительные сложности</li>
         <li class="next">Если беретесь за самостоятельную реализацию - погрузитесь в вопрос безопаности</li>
+
+    </ul>
+    <div class="logo"></div>
+</section>
+
+<section class="slide ">
+    <h2 class=" shrink fs70">Выводы по подходу</h2>
+    <ul>
+        <li>Вариант когда JWT токены хранятся в куках - оптимален и закрывает большинство вопросов</li>
+        <li>Вариант с хранением токенов в localstorage возможен, но желательно избегать, защищать сложнее</li>
     </ul>
     <div class="logo"></div>
 </section>
@@ -885,6 +887,11 @@ private getRequest(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEve
     <div class="logo"></div>
 </section>
 
+<section class="slide ">
+    <h2 class=" shrink fs70">Cheatlist</h2>
+    <p>@todo</p>
+    <div class="logo"></div>
+</section>
 
 <section class="slide">
     <h2 class="">Спасибо! 🙃</h2>
